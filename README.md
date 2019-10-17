@@ -1,2 +1,2 @@
 # riilcash-sdk
-RIILCASH API
+Java Android library for connect riilcash network
