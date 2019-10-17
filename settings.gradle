@@ -1,0 +1,2 @@
+include ':app', ':riilcashsdk'
+rootProject.name='Rillcash Sample'
