@@ -11,7 +11,8 @@ public class Commons {
 
     public static String getServerUrl(Context context) {
         String url;
-        url = "https://common.riilcash.com/";
+        //url = "https://common.riilcash.com/";
+        url = "http://192.168.0.119:8069/";
         Log.e(TAG, "getServerUrl--> url: " + url);
         return url;
     }
