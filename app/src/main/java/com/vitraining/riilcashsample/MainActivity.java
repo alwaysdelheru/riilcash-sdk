@@ -22,6 +22,8 @@ import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    String URL = "https://common.remcash.com/";
+
     ActionBar actionBar;
     Toolbar toolbar;
 
@@ -218,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void login() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.login(this, "ca", "1", new RiilCashCallback() {
+        riilCash.login(this, URL, "akhdaniel2@gmail.com", "1", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "login--> onSuccess: " + response);
@@ -235,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RiilCash riilCash = new RiilCash(this);
         result = riilCash.peoples(
                 this,
+                    URL,
                 "heru",
                 "remcash.com",
                 "alwaysdelheru@gmail.com",
@@ -253,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void country() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.country(this, "lll", new RiilCashCallback() {
+        riilCash.country(this, URL, "lll", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "country--> onSuccess: " + response);
@@ -268,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void currency() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.currency(this, "lll", new RiilCashCallback() {
+        riilCash.currency(this, URL, "lll", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "country--> onSuccess: " + response);
@@ -283,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void mto() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.mto(this, "lll", new RiilCashCallback() {
+        riilCash.mto(this, URL, "lll", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "mto--> onSuccess: " + response);
@@ -298,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void bank() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.bank(this, "lll", new RiilCashCallback() {
+        riilCash.bank(this, URL, "lll", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "bank--> onSuccess: " + response);
@@ -313,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void provider() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.provider(this, "lll", new RiilCashCallback() {
+        riilCash.provider(this, URL, "lll", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "provider--> onSuccess: " + response);
@@ -328,7 +331,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void listUser() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.listUser(this, "lll", new RiilCashCallback() {
+        riilCash.listUser(this, URL, "lll", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "listUser--> onSuccess: " + response);
@@ -343,7 +346,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getUser() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.getUser(this, "lll", "123", new RiilCashCallback() {
+        riilCash.getUser(this, URL, "lll", "123", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "getUser--> onSuccess: " + response);
@@ -358,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void checkAccount() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.checkAccount(this, "lll", "123", new RiilCashCallback() {
+        riilCash.checkAccount(this, URL, "lll", "123", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "checkAccount--> onSuccess: " + response);
@@ -373,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void peopleByName() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.peopleByName(this, "lll", "heru@gmail.com", new RiilCashCallback() {
+        riilCash.peopleByName(this, URL, "lll", "heru@gmail.com", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "peopleByName--> onSuccess: " + response);
@@ -388,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void peopleByParent() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.peopleByParent(this, "lll", 123, new RiilCashCallback() {
+        riilCash.peopleByParent(this, URL, "lll", 123, new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "peopleByParent--> onSuccess: " + response);
@@ -403,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void forgotPassword() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.forgotPassword(this, "lll", "heru@gmail.com", new RiilCashCallback() {
+        riilCash.forgotPassword(this, URL, "lll", "heru@gmail.com", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "forgotPassword--> onSuccess: " + response);
@@ -418,7 +421,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void singlePeopleByName() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.singlePeopleByName(this, "lll", "heru@gmail.com", new RiilCashCallback() {
+        riilCash.singlePeopleByName(this, URL, "lll", "heru@gmail.com", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "forgotPassword--> onSuccess: " + response);
@@ -435,6 +438,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RiilCash riilCash = new RiilCash(this);
         riilCash.deposits(
                 this,
+                URL,
                 "lll",
                 "GCD2CPMHHYLOBMOHSWO2HOWYMYOA7LX..ULIKXMHTJ32",
                 Double.parseDouble("100"),
@@ -457,7 +461,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getDeposit() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.getDeposit(this, "lll", "GCD2CQ36G4SQTPEUULIKXMHTJ32", new RiilCashCallback() {
+        riilCash.getDeposit(this, URL, "lll", "GCD2CQ36G4SQTPEUULIKXMHTJ32", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "getDeposit--> onSuccess: " + response);
@@ -472,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void processDeposit() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.processDeposit(this, "lll", "e3r432490423", new RiilCashCallback() {
+        riilCash.processDeposit(this, URL, "lll", "e3r432490423", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "getDeposit--> onSuccess: " + response);
@@ -489,6 +493,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RiilCash riilCash = new RiilCash(this);
         riilCash.withdrawals(
                 this,
+                URL,
                 "lll",
                 "GCD2CPMHHYLOBMOHSWO2HOWYMYOA7LX..ULIKXMHTJ32",
                 Double.parseDouble("100"),
@@ -511,7 +516,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getWithdrawal() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.getWithdrawal(this, "lll", "GCD2CQ36G4SQTPEUULIKXMHTJ32", new RiilCashCallback() {
+        riilCash.getWithdrawal(this, URL, "lll", "GCD2CQ36G4SQTPEUULIKXMHTJ32", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "getWithdrawal--> onSuccess: " + response);
@@ -526,7 +531,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void processWithdrawal() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.processWithdrawal(this, "lll", "e3r432490423", new RiilCashCallback() {
+        riilCash.processWithdrawal(this, URL, "lll", "e3r432490423", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "getDeposit--> onSuccess: " + response);
@@ -541,7 +546,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getBankTransfer() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.getBankTransfer(this, "lll", "GCD2CQ36G4SQTPEUULIKXMHTJ32", new RiilCashCallback() {
+        riilCash.getBankTransfer(this, URL, "lll", "GCD2CQ36G4SQTPEUULIKXMHTJ32", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "getWithdrawal--> onSuccess: " + response);
@@ -556,7 +561,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void processBankTransfer() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.processBankTransfer(this, "lll", "e3r432490423", new RiilCashCallback() {
+        riilCash.processBankTransfer(this, URL, "lll", "e3r432490423", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "getDeposit--> onSuccess: " + response);
@@ -573,6 +578,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RiilCash riilCash = new RiilCash(this);
         riilCash.createPayment(
                 this,
+                URL,
                 "lll",
                 "GCD2CPMHHYLOLXBTTQ36G4SQTPEUULIKXMHTJ32",
                 "GC7457834758TQ36G4SQTPEUULIKXMHTJ32",
@@ -596,6 +602,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RiilCash riilCash = new RiilCash(this);
         riilCash.sendMoney(
                 this,
+                URL,
                 "lll",
                 "GCD2CPMHHYLOLXBTTQ36G4SQTPEUULIKXMHTJ32",
                 "GC7457834758TQ36G4SQTPEUULIKXMHTJ32",
