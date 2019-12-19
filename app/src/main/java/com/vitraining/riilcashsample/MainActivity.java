@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void country() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.country(this, URL, "lll", new RiilCashCallback() {
+        riilCash.country(this, URL, "access_token_35cc2fd052b4bc4ae32cbeb01c3be6c57afa7fa2", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "country--> onSuccess: " + response);
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void currency() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.currency(this, URL, "lll", new RiilCashCallback() {
+        riilCash.currency(this, URL, "access_token_5b7a9dc70bcc10556999f71f56273079e68ee37e", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "country--> onSuccess: " + response);
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void mto() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.mto(this, URL, "lll", new RiilCashCallback() {
+        riilCash.mto(this, URL, "access_token_da480fd619a28b30ffeedd77216bb9096edb9439", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "mto--> onSuccess: " + response);
@@ -301,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void bank() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.bank(this, URL, "lll", new RiilCashCallback() {
+        riilCash.bank(this, URL, "access_token_da480fd619a28b30ffeedd77216bb9096edb9439", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "bank--> onSuccess: " + response);
@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void provider() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.provider(this, URL, "lll", new RiilCashCallback() {
+        riilCash.provider(this, URL, "access_token_da480fd619a28b30ffeedd77216bb9096edb9439", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "provider--> onSuccess: " + response);
