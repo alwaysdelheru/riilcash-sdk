@@ -779,7 +779,7 @@ public class RiilCash {
                                 String currency,
                                 String currency_destination,
                                 String unique_code,
-                                Integer mothod,
+                                Integer method,
                                 Integer method_source,
                                 String date_order,
                                 final RiilCashCallback riilCashCallback) {
@@ -792,7 +792,7 @@ public class RiilCash {
         m.put("amount_receive", amount_receive);
         m.put("currency", currency);
         m.put("currency_destination", currency_destination);
-        m.put("mothod", mothod);
+        m.put("method", method);
         m.put("method_source", method_source);
         m.put("unique_code", unique_code);
         m.put("date_order", date_order);

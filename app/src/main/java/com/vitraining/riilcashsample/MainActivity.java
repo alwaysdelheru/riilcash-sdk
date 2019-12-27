@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void listUser() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.listUser(this, URL, "lll", new RiilCashCallback() {
+        riilCash.listUser(this, URL, "access_token_eb7f55775849fc21a001268ea7788332d4321797", new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "listUser--> onSuccess: " + response);
@@ -391,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void peopleByParent() {
         RiilCash riilCash = new RiilCash(this);
-        riilCash.peopleByParent(this, URL, "lll", 123, new RiilCashCallback() {
+        riilCash.peopleByParent(this, URL, "access_token_b58ac30f0ef149f2a8bf142618cbcfcd6cd4c3b8", 115, new RiilCashCallback() {
             public void onSuccess(String response){
                 txtResult.setText(response);
                 Log.e(TAG, "peopleByParent--> onSuccess: " + response);
