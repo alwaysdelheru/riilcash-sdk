@@ -22,12 +22,16 @@ public class RiilCash {
     private static final String TAG = RiilCash.class.getSimpleName();
     private String ret;
     private ProgressDialog progressDialog;
+    private String url;
+    private Context context;
 
-    public RiilCash(Context context) {
+    public RiilCash(Context context, String url) {
         progressDialog = new ProgressDialog(context);
+        this.url = url;
+        this.context = context;
     }
 
-    public void login(final Context context, String url, String name, String password, final RiilCashCallback riilCashCallback) {
+    public void login(String name, String password, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
         Map<String, Object> m = new HashMap<>();
         m.put("name", name);
@@ -40,13 +44,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -59,9 +69,7 @@ public class RiilCash {
         });
     }
 
-    public String peoples(
-            final Context context,
-            String url,
+    public void peoples(
             String name,
             String domain,
             String email,
@@ -73,8 +81,8 @@ public class RiilCash {
             Integer country_id,
             String password,
             Integer pin,
-            String role) {
-        ret = null;
+            String role,
+            final RiilCashCallback riilCashCallback) {
         Map<String, Object> m = new HashMap<>();
         m.put("name", name);
         m.put("domain", domain);
@@ -94,21 +102,34 @@ public class RiilCash {
         call.enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
-                ret = response.body().toString();
+                try {
+                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    riilCashCallback.onError(e.toString());
+                }
+
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<JsonElement> call, Throwable t) {
                 Log.e("Error", t.toString());
-                Commons.showToast(context, t.toString(), false);
-                ret = t.toString();
+                riilCashCallback.onError(t.toString());
+                progressDialog.dismiss();
             }
         });
-
-        return ret;
     }
 
-    public void country(final Context context, String url, String token, final RiilCashCallback riilCashCallback) {
+    public void country(String token, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -118,13 +139,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -137,7 +164,7 @@ public class RiilCash {
         });
     }
 
-    public void currency(final Context context, String url, String token, final RiilCashCallback riilCashCallback) {
+    public void currency(String token, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -147,13 +174,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -166,7 +199,7 @@ public class RiilCash {
         });
     }
 
-    public void mto(final Context context, String url, String token, final RiilCashCallback riilCashCallback) {
+    public void mto(String token, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -176,13 +209,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -195,7 +234,7 @@ public class RiilCash {
         });
     }
 
-    public void bank(final Context context, String url, String token, final RiilCashCallback riilCashCallback) {
+    public void bank(String token, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -205,13 +244,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -224,7 +269,7 @@ public class RiilCash {
         });
     }
 
-    public void provider(final Context context, String url, String token, final RiilCashCallback riilCashCallback) {
+    public void provider(String token, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -234,13 +279,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -253,7 +304,7 @@ public class RiilCash {
         });
     }
 
-    public void listUser(final Context context, String url, String token, final RiilCashCallback riilCashCallback) {
+    public void listUser(String token, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -263,13 +314,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -282,7 +339,7 @@ public class RiilCash {
         });
     }
 
-    public void getUser(final Context context, String url, String token, String rillcash_id, final RiilCashCallback riilCashCallback) {
+    public void getUser(String token, String rillcash_id, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -292,13 +349,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -311,7 +374,7 @@ public class RiilCash {
         });
     }
 
-    public void checkAccount(final Context context, String url, String token, String account_id, final RiilCashCallback riilCashCallback) {
+    public void checkAccount(String token, String account_id, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         Map<String, Object> m = new HashMap<>();
@@ -324,13 +387,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -343,7 +412,7 @@ public class RiilCash {
         });
     }
 
-    public void peopleByName(final Context context, String url, String token, String name, final RiilCashCallback riilCashCallback) {
+    public void peopleByName(String token, String name, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -353,13 +422,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -372,7 +447,7 @@ public class RiilCash {
         });
     }
 
-    public void peopleByParent(final Context context, String url, String token, Integer id, final RiilCashCallback riilCashCallback) {
+    public void peopleByParent(String token, Integer id, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -382,13 +457,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -401,7 +482,7 @@ public class RiilCash {
         });
     }
 
-    public void forgotPassword(final Context context, String url, String token, String name, final RiilCashCallback riilCashCallback) {
+    public void forgotPassword(String token, String name, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -411,13 +492,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -430,7 +517,7 @@ public class RiilCash {
         });
     }
 
-    public void singlePeopleByName(final Context context, String url, String token, String name, final RiilCashCallback riilCashCallback) {
+    public void singlePeopleByName(String token, String name, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -440,13 +527,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -459,9 +552,7 @@ public class RiilCash {
         });
     }
 
-    public void deposits(final Context context,
-                           String url,
-                           String token,
+    public void deposits(String token,
                            String account_id,
                            Double amount,
                            String currency,
@@ -486,13 +577,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -505,7 +602,7 @@ public class RiilCash {
         });
     }
 
-    public void getDeposit(final Context context, String url, String token, String name, final RiilCashCallback riilCashCallback) {
+    public void getDeposit(String token, String name, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -515,13 +612,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -534,7 +637,7 @@ public class RiilCash {
         });
     }
 
-    public void processDeposit(final Context context, String url, String token, String unique_id, final RiilCashCallback riilCashCallback) {
+    public void processDeposit(String token, String unique_id, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -544,13 +647,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -563,9 +672,7 @@ public class RiilCash {
         });
     }
 
-    public void withdrawals(final Context context,
-                           String url,
-                           String token,
+    public void withdrawals(String token,
                            String account_id,
                            Double amount,
                            String currency,
@@ -590,13 +697,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -609,7 +722,7 @@ public class RiilCash {
         });
     }
 
-    public void getWithdrawal(final Context context, String url, String token, String name, final RiilCashCallback riilCashCallback) {
+    public void getWithdrawal(String token, String name, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -619,13 +732,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -638,7 +757,7 @@ public class RiilCash {
         });
     }
 
-    public void processWithdrawal(final Context context, String url, String token, String unique_id, final RiilCashCallback riilCashCallback) {
+    public void processWithdrawal(String token, String unique_id, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -648,13 +767,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -667,7 +792,7 @@ public class RiilCash {
         });
     }
 
-    public void getBankTransfer(final Context context, String url, String token, String unique_id, final RiilCashCallback riilCashCallback) {
+    public void getBankTransfer(String token, String unique_id, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -677,13 +802,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -696,7 +827,7 @@ public class RiilCash {
         });
     }
 
-    public void processBankTransfer(final Context context, String url, String token, String unique_id, final RiilCashCallback riilCashCallback) {
+    public void processBankTransfer(String token, String unique_id, final RiilCashCallback riilCashCallback) {
         Commons.showProgressDialog(progressDialog, "Loading...");
 
         ApiService apiService = ApiClient.getClient(context, url).create(ApiService.class);
@@ -706,13 +837,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -725,9 +862,7 @@ public class RiilCash {
         });
     }
 
-    public void createPayment(final Context context,
-                              String url,
-                              String token,
+    public void createPayment(String token,
                               String source_account_pub,
                               String dest_account_pub,
                               Double amount,
@@ -750,13 +885,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 
@@ -769,9 +910,7 @@ public class RiilCash {
         });
     }
 
-    public void sendMoney(final Context context,
-                                String url,
-                                String token,
+    public void sendMoney(String token,
                                 String source_account_pub,
                                 String dest_account_id,
                                 Double amount,
@@ -804,13 +943,19 @@ public class RiilCash {
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    ret = jsonObject.toString();
+                    int status = jsonObject.getInt("status");
+
+                    if (status == 0) {
+                        riilCashCallback.onSuccess(jsonObject.toString(4));
+                    } else {
+                        riilCashCallback.onError(jsonObject.toString(4));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ret = e.toString();
+                    riilCashCallback.onError(e.toString());
                 }
-                riilCashCallback.onSuccess(ret);
+
                 progressDialog.dismiss();
             }
 

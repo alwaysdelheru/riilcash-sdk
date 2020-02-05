@@ -42,28 +42,29 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <EditText
-                    android:id="@+id/edtUsername"
+                    android:id="@+id/edtAction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="Username"
-                    android:inputType="textEmailAddress"/>
-
-                <EditText
-                    android:id="@+id/edtPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:hint="Password"
-                    android:inputType="textPassword"/>
+                    android:hint="Select Action"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
 
                 <Button
-                    android:id="@+id/btnLogin"
+                    android:id="@+id/btnRun"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Login"
-                    android:onClick="btnLoginClick"/>
+                    android:text="Run"
+                    android:onClick="btnRunClick"/>
+
+                <TextView
+                    android:id="@+id/txtResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Response here..."
+                    android:textIsSelectable="true"/>
 
             </LinearLayout>
 
